@@ -39,6 +39,7 @@
     <Compile Include="DataObjects\Season.cs" />
     <Compile Include="DataObjects\Episode.cs" />
     <Compile Include="WebHelpers.cs" />
+    <Compile Include="EpGuidesApi.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

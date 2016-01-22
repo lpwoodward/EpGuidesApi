@@ -11,6 +11,11 @@ namespace EpGuidesApi
 		public virtual DateTime AirDate { get; set; }
 		public virtual int SeasonNumber { get; set; }
 		public virtual string SeriesName { get; set; }
+
+		public virtual bool IsEpisodeAvailableForDownload()
+		{
+			return AirDate.Date <= DateTime.Now.Date;
+		)
 	}
 }
 

@@ -9,7 +9,7 @@ namespace EpGuidesApi
 		public virtual string Name { get; set; }
 		public virtual List<Season> Seasons { get; set; }
 
-		public virtual Episode GetMostRecentEpisode()
+		public virtual Episode GetMostRecentlyAiredEpisode()
 		{
 			throw new NotImplementedException();
 		}
