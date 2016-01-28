@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Dynamic;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace EpGuidesApi
 {
@@ -13,15 +15,13 @@ namespace EpGuidesApi
 
 		#endregion
 
-		public static Series GetSeriesInformation(string seriesName)
-		{
-			return MethodObject.GetSeriesInformation(string seriesName);
-		}
+		public static Series GetSeriesInformation(string seriesName) { return MethodObject.GetSeriesInformationSlave(seriesName); 		}
 		protected internal virtual Series GetSeriesInformationSlave(string seriesName)
 		{
-			var epGuidesSeriesHtml = new WebHelpers().GetHtmlPageAsString("http://epguides.com/" + seriesName);
+			var epGuidesSeriesHtml = WebHelpers.GetHtmlPageAsString("http://epguides.com/" + seriesName);
 			var episodeMatches = Regex.Matches(epGuidesSeriesHtml, EpisodeRegex, RegexOptions.Multiline);
 			var episodes = new List<Episode>();
+
 			foreach (Match match in episodeMatches)
 			{
 				if (match.Groups.Count != 6) throw new Exception("Incorrect number of match groups");
@@ -32,7 +32,8 @@ namespace EpGuidesApi
 				var airDate = DateTime.Parse(match.Groups[4].Value);
 				var episodeName = match.Groups[5].Value;
 
-				episodes.Add(new Episode {
+				episodes.Add(new Episode
+				{
 					AirDate = airDate,
 					EpisodeId = episodeId,
 					Name = episodeName,
@@ -44,6 +45,8 @@ namespace EpGuidesApi
 
 			return Series.Create(seriesName, episodes);
 		}
+
+
 	}
 }
 

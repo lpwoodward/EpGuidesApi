@@ -15,7 +15,7 @@ namespace EpGuidesApi
 		public virtual bool IsEpisodeAvailableForDownload()
 		{
 			return AirDate.Date <= DateTime.Now.Date;
-		)
+		}
 	}
 }
 
