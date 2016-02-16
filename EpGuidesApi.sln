@@ -3,12 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpGuidesApi", "EpGuidesApi\EpGuidesApi.csproj", "{517A933D-B1BF-49A6-8AFD-88B4A62E9002}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NameEpisodes", "NameEpisodes\NameEpisodes.csproj", "{3F9B8D22-4054-4FD4-9764-B35E5444FB42}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3F9B8D22-4054-4FD4-9764-B35E5444FB42}.Debug|x86.ActiveCfg = Debug|x86
+		{3F9B8D22-4054-4FD4-9764-B35E5444FB42}.Debug|x86.Build.0 = Debug|x86
+		{3F9B8D22-4054-4FD4-9764-B35E5444FB42}.Release|x86.ActiveCfg = Release|x86
+		{3F9B8D22-4054-4FD4-9764-B35E5444FB42}.Release|x86.Build.0 = Release|x86
 		{517A933D-B1BF-49A6-8AFD-88B4A62E9002}.Debug|x86.ActiveCfg = Debug|x86
 		{517A933D-B1BF-49A6-8AFD-88B4A62E9002}.Debug|x86.Build.0 = Debug|x86
 		{517A933D-B1BF-49A6-8AFD-88B4A62E9002}.Release|x86.ActiveCfg = Release|x86

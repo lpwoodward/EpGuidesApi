@@ -11,7 +11,7 @@ namespace EpGuidesApi
 	{
 		public static void Main(string[] args)
 		{
-			var seriesInformationFromEpGuides = EpGuidesApi.GetSeriesInformation("Friends");
+			var seriesInformationFromEpGuides = EpGuidesApi.GetSeriesInformation("Flash_2014");
 			var seriesInformationFromDisk = FileSystemEpisodeApi.GetSeriesInformation("Friends", "/Users/Laurence/tmpDir");
 			var latestEpisodeFromDisk = seriesInformationFromDisk.GetLatestEpisode();
 			var episodesToGet = seriesInformationFromEpGuides.GetEpisodesAfterEpisode(latestEpisodeFromDisk);
