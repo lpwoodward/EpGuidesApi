@@ -56,19 +56,28 @@ namespace NameEpisodes
 			var file = new FileInfo(episodeFile.FullName);
 
 			var fileNameRegexMatch = episodeRegex.Match(fileName);
-			var seriesName = fileNameRegexMatch.Groups[1].Value;
-			var seasonNumber = fileNameRegexMatch.Groups[2].Value;
-			var episodeNumber = fileNameRegexMatch.Groups[3].Value;
+			var seriesName = FormatSeriesName(fileNameRegexMatch.Groups[1].Value);
+			var seasonNumber = int.Parse(fileNameRegexMatch.Groups[2].Value);
+			var episodeNumber = int.Parse(fileNameRegexMatch.Groups[3].Value);
 			var extension = file.Extension;
 
+			var newFileName = string.Format("{0}_S{1}E{2}.{3}", seriesName, seasonNumber, episodeNumber, extension);
+			file.MoveTo(file.DirectoryName + "/" + newFileName);
 
+			return new Episode
+			{
+				Number = episodeNumber,
+				SeasonNumber = seasonNumber,
+				SeriesName = seriesName
+			};
 		}
 
 		protected internal virtual string FormatSeriesName(string series)
 		{
-			return 
+			series = Regex.Replace(series, "^the", "", RegexOptions.IgnoreCase);
+			return series.Replace(".", "")
+						 .Replace("-", "")
+						 .Replace(" ", "");
 		}
-
-//		protected internal virtual string GetNewEpisodeName(string episode
 	}
 }
