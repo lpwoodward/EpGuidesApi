@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpGuidesApi", "EpGuidesApi\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NameEpisodes", "NameEpisodes\NameEpisodes.csproj", "{3F9B8D22-4054-4FD4-9764-B35E5444FB42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests A - Unit Tests", "Tests_A_-_Unit_Tests\Tests A - Unit Tests.csproj", "{E378D24B-2BBE-4130-80BB-D141EFC6D124}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests B - Integration Tests", "Tests_B_-_Integration_Tests\Tests B - Integration Tests.csproj", "{543AD062-BF58-4CDB-B752-B440769D4376}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -19,5 +23,13 @@ Global
 		{517A933D-B1BF-49A6-8AFD-88B4A62E9002}.Debug|x86.Build.0 = Debug|x86
 		{517A933D-B1BF-49A6-8AFD-88B4A62E9002}.Release|x86.ActiveCfg = Release|x86
 		{517A933D-B1BF-49A6-8AFD-88B4A62E9002}.Release|x86.Build.0 = Release|x86
+		{543AD062-BF58-4CDB-B752-B440769D4376}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{543AD062-BF58-4CDB-B752-B440769D4376}.Debug|x86.Build.0 = Debug|Any CPU
+		{543AD062-BF58-4CDB-B752-B440769D4376}.Release|x86.ActiveCfg = Release|Any CPU
+		{543AD062-BF58-4CDB-B752-B440769D4376}.Release|x86.Build.0 = Release|Any CPU
+		{E378D24B-2BBE-4130-80BB-D141EFC6D124}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E378D24B-2BBE-4130-80BB-D141EFC6D124}.Debug|x86.Build.0 = Debug|Any CPU
+		{E378D24B-2BBE-4130-80BB-D141EFC6D124}.Release|x86.ActiveCfg = Release|Any CPU
+		{E378D24B-2BBE-4130-80BB-D141EFC6D124}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

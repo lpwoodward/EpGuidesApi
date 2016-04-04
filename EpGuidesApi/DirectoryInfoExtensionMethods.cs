@@ -27,6 +27,14 @@ namespace EpGuidesApi
 		}
 	}
 
+	public static class FileInfoExtensionMethods
+	{
+		public static FileSystemInfo CreateHardLink(this FileInfo fileInfo, string linkNameFullPath)
+		{
+			throw new NotImplementedException();
+		}
+	}
+
 	public static class UnixDirectoryInfoExtensionMethods
 	{
 		public static List<UnixDirectoryInfo> GetDirectories(this UnixDirectoryInfo directoryInfo, Regex regex)
