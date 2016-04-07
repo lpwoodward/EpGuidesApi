@@ -6,7 +6,7 @@
     <ProjectGuid>{E378D24B-2BBE-4130-80BB-D141EFC6D124}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>EpGuidesApi.Tests.Unit</RootNamespace>
-    <AssemblyName>EpGuides.Tests.Unit</AssemblyName>
+    <AssemblyName>EpGuidesApi.Tests.Unit</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -46,5 +46,11 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EpGuidesApi\EpGuidesApi.csproj">
+      <Project>{517A933D-B1BF-49A6-8AFD-88B4A62E9002}</Project>
+      <Name>EpGuidesApi</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

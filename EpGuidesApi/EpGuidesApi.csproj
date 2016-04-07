@@ -47,6 +47,7 @@
     <Compile Include="FileSystemEpisodeApi.cs" />
     <Compile Include="DirectoryInfoExtensionMethods.cs" />
     <Compile Include="ISeriesDataService.cs" />
+    <Compile Include="VisibleTo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
