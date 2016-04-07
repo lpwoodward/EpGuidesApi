@@ -14,97 +14,101 @@ namespace EpGuidesApi.Domain.DirectoryStuff
 	{
 		internal static DirectoryInfoExtensionMethodsConcreteObject MethodObject = new DirectoryInfoExtensionMethodsConcreteObject();
 
-		public static List<FileSystemInfo> GetFileSystemInfosAsList(this DirectoryInfo directoryInfo, Regex regex = null, SearchOption searchOption = SearchOption.TopDirectoryOnly)
+		public static List<FileSystemInfo> GetFileSystemInfosAsList(this DirectoryInfo directoryInfo, Regex regex = null, SearchOption searchOption = SearchOption.TopDirectoryOnly) { return MethodObject.GetFileSystemInfosAsListSlave(directoryInfo, regex, searchOption); }
+		public static List<DirectoryInfo> GetDirectoriesAsList(this DirectoryInfo directoryInfo, Regex regex = null, SearchOption searchOption = SearchOption.TopDirectoryOnly) { return MethodObject.GetDirectoriesAsListSlave(directoryInfo, regex, searchOption); }
+		public static List<FileInfo> GetFilesAsList(this DirectoryInfo directoryInfo, Regex regex = null, SearchOption searchOption = SearchOption.TopDirectoryOnly) { return MethodObject.GetFilesAsListSlave(directoryInfo, regex, searchOption); }
+		public static bool IsEmpty(this DirectoryInfo directoryInfo) { return MethodObject.IsEmptySlave(directoryInfo); }
+		public static void ClearDirectory(this DirectoryInfo directoryInfo, bool errorIfSubdirectoriesNotEmpty = false) { MethodObject.ClearDirectorySlave(directoryInfo, errorIfSubdirectoriesNotEmpty); }
+	}
+
+	public class DirectoryInfoExtensionMethodsConcreteObject
+	{
+		#region GetFileSystemInfosAsList
+
+		/// <summary>
+		/// Gets the FileSystemInfos as List.
+		/// </summary>
+		/// <returns>The file system infos as list slave.</returns>
+		/// <param name="directoryInfo">Directory info.</param>
+		/// <param name="regex">Regex.</param>
+		/// <param name="searchOption">Search option.</param>
+		protected internal virtual List<FileSystemInfo> GetFileSystemInfosAsListSlave(DirectoryInfo directoryInfo, Regex regex, SearchOption searchOption)
 		{
 			return directoryInfo.EnumerateFileSystemInfos("*", searchOption)
 								.Where(x => (regex ?? new Regex(".*")).IsMatch(x.Name))
 								.ToList();
 		}
-		
-		public static List<DirectoryInfo> GetDirectoriesAsList(this DirectoryInfo directoryInfo, Regex regex = null, SearchOption searchOption = SearchOption.TopDirectoryOnly)
+
+		#endregion
+
+		#region GetDirectoriesAsList
+
+		/// <summary>
+		/// Gets the Directories as List.
+		/// </summary>
+		/// <returns>The directories as list slave.</returns>
+		/// <param name="directoryInfo">Directory info.</param>
+		/// <param name="regex">Regex.</param>
+		/// <param name="searchOption">Search option.</param>
+		protected internal virtual List<DirectoryInfo> GetDirectoriesAsListSlave(DirectoryInfo directoryInfo, Regex regex, SearchOption searchOption)
 		{
 			return directoryInfo.EnumerateDirectories("*", searchOption)
 								.Where(x => (regex ?? new Regex(".*")).IsMatch(x.Name))
 								.ToList();
 		}
 
-		public static List<FileInfo> GetFilesAsList(this DirectoryInfo directoryInfo, Regex regex = null, SearchOption searchOption = SearchOption.TopDirectoryOnly)
+		#endregion
+
+		#region GetFilesAsList
+
+		/// <summary>
+		/// Gets the Files as List.
+		/// </summary>
+		/// <returns>The files as list slave.</returns>
+		/// <param name="directoryInfo">Directory info.</param>
+		/// <param name="regex">Regex.</param>
+		/// <param name="searchOption">Search option.</param>
+		protected internal virtual List<FileInfo> GetFilesAsListSlave(DirectoryInfo directoryInfo, Regex regex, SearchOption searchOption)
 		{
 			return directoryInfo.EnumerateFiles("*", searchOption)
 								.Where(x => (regex ?? new Regex(".*")).IsMatch(x.Name))
 								.ToList();
 		}
 
-		public static bool IsEmpty(this DirectoryInfo directoryInfo)
+		#endregion
+
+		#region IsEmpty
+
+		/// <summary>
+		/// Determines whether directory is empty.
+		/// </summary>
+		/// <returns><c>true</c> if this instance is empty the specified directoryInfo; otherwise, <c>false</c>.</returns>
+		/// <param name="directoryInfo">Directory info.</param>
+		protected internal virtual bool IsEmptySlave(DirectoryInfo directoryInfo)
 		{
-			return directoryInfo.GetFileSystemInfos().Any() == false;
+			return directoryInfo.GetFileSystemInfosAsList().Any() == false;
 		}
 
-		public static void ClearDirectory(this DirectoryInfo directoryInfo, bool errorIfSubdirectoriesNotEmpty = false)
+		#endregion
+
+		#region ClearDirectory
+
+		/// <summary>
+		/// Clears the directory.
+		/// </summary>
+		/// <param name="directoryInfo">Directory info.</param>
+		/// <param name="errorIfSubdirectoriesNotEmpty">If set to <c>true</c> error if subdirectories not empty.</param>
+		protected internal virtual void ClearDirectorySlave(DirectoryInfo directoryInfo, bool errorIfSubdirectoriesNotEmpty)
 		{
-			if (errorIfSubdirectoriesNotEmpty && directoryInfo.GetDirectoriesAsList().Any(x => x.IsEmpty() == false))
+			var directories = directoryInfo.GetDirectoriesAsList();
+			if (errorIfSubdirectoriesNotEmpty && directories.Any(x => x.IsEmpty() == false))
 				throw new Exception("Cannot clear directory, some sub-directories are not empty");
 
 			directoryInfo.GetFilesAsList().ForEach(x => x.Delete());
-			directoryInfo.GetDirectoriesAsList().ForEach(x => x.Delete(true));
-		}
-	}
-
-	public static class FileInfoExtensionMethods
-	{
-		public static FileSystemInfo CreateHardLink(this FileInfo fileInfo, string linkNameFullPath)
-		{
-			throw new NotImplementedException();
-		}
-	}
-
-	public static class UnixDirectoryInfoExtensionMethods
-	{
-		public static List<UnixDirectoryInfo> GetDirectories(this UnixDirectoryInfo directoryInfo, Regex regex)
-		{
-			return directoryInfo.GetFileSystemEntries()
-								.Where(x => x.IsDirectory)
-								.Where(x => regex.IsMatch(x.Name))
-								.Cast<UnixDirectoryInfo>()
-								.ToList();
+			directories.ForEach(x => x.Delete(true));
 		}
 
-		public static List<UnixFileInfo> GetFiles(this UnixDirectoryInfo directoryInfo, Regex regex)
-		{
-			//not sure how IsRegularFile will work with links
-			return directoryInfo.GetFileSystemEntries()
-								.Where(x => x.IsRegularFile)
-								.Where(x => regex.IsMatch(x.Name))
-								.Cast<UnixFileInfo>()
-								.ToList();
-		}
-
-		public static UnixFileInfo MoveTo(this UnixFileInfo unixFileInfo, string newFullPathName)
-		{
-			var fileInfo = new FileInfo(unixFileInfo.FullName);
-			fileInfo.MoveTo(newFullPathName);
-			return new UnixFileInfo(newFullPathName);
-		}
-
-		public static UnixDirectoryInfo MoveTo(this UnixDirectoryInfo unixDirectoryInfo, string newFullPathName)
-		{
-			throw new NotImplementedException();
-		}
-
-		//doing generic <T> where T : UnixFileSystemInfo doesn't seem right, as I can't create a instance of FileSystemInfo
-	}
-
-	internal class DirectoryInfoExtensionMethodsConcreteObject
-	{
-		protected internal virtual List<DirectoryInfo> GetDirectoriesSlave(DirectoryInfo directoryInfo, Regex regex, SearchOption searchOption)
-		{
-			throw new NotImplementedException();
-		}
-
-		protected internal virtual List<FileInfo> GetFilesSlave(DirectoryInfo directoryInfo, Regex regex, SearchOption searchOption)
-		{
-			throw new NotImplementedException();
-		}
+		#endregion
 	}
 }
 

@@ -45,10 +45,11 @@ namespace NameEpisodes
 
 		protected internal virtual List<UnixFileSystemInfo> SetupHardLinksForEpisodeFiles()
 		{
-			var workingDirectory = new UnixDirectoryInfo(workingDirectoryPath);
-			var episodeFiles = workingDirectory.GetFiles(new Regex("s\\d+e\\d+", RegexOptions.IgnoreCase));
+			throw new NotImplementedException("This all needs rewriting to use new directoryInfo methods");
+//			var workingDirectory = new UnixDirectoryInfo(workingDirectoryPath);
+//			var episodeFiles = workingDirectory.GetFiles(new Regex("s\\d+e\\d+", RegexOptions.IgnoreCase));
 
-			return episodeFiles.Select(x => x.CreateLink(originalMediaDirectoryPath + x.Name)).ToList();
+//			return episodeFiles.Select(x => x.CreateLink(originalMediaDirectoryPath + x.Name)).ToList();
 		}
 
 		protected internal virtual Episode GetEpisode(UnixFileSystemInfo episodeFile)
