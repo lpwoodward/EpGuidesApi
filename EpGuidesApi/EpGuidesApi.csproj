@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProjectGuid>{517A933D-B1BF-49A6-8AFD-88B4A62E9002}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>EpGuidesApi</RootNamespace>
+    <RootNamespace>EpGuidesApi.Domain</RootNamespace>
     <AssemblyName>EpGuidesApi</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
@@ -32,6 +32,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="Mono.Posix" />
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -43,9 +46,14 @@
     <Compile Include="EpGuidesApi.cs" />
     <Compile Include="FileSystemEpisodeApi.cs" />
     <Compile Include="DirectoryInfoExtensionMethods.cs" />
+    <Compile Include="ISeriesDataService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="DataObjects\" />
+    <Folder Include="DirectoryStuff\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

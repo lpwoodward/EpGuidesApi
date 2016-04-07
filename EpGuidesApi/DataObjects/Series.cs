@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EpGuidesApi
+namespace EpGuidesApi.Domain.DataObjects
 {
 	public class Series
 	{

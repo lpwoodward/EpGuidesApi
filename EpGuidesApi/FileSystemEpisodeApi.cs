@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Threading;
+using EpGuidesApi.Domain.DataObjects;
+using EpGuidesApi.Domain.DirectoryStuff;
 
-namespace EpGuidesApi
+namespace EpGuidesApi.Domain
 {
 	public class FileSystemEpisodeApi
 	{
@@ -18,7 +20,7 @@ namespace EpGuidesApi
 		{
 			var seriesDirectoryPath = string.Format("{0}/{1}", pathToSearch, seriesName);
 			var directory = new DirectoryInfo(seriesDirectoryPath);
-			var seasonFolders = directory.GetDirectories(new Regex("Season [\\d]+", RegexOptions.IgnoreCase));				
+			var seasonFolders = directory.GetDirectoriesAsList(new Regex("Season [\\d]+", RegexOptions.IgnoreCase));				
 
 			var episodes = new List<Episode>();
 			seasonFolders.ForEach(x => AddEpisodesForSeason(x, seriesName, episodes));
@@ -27,7 +29,7 @@ namespace EpGuidesApi
 
 		protected internal virtual void AddEpisodesForSeason(DirectoryInfo seasonFolder, string seriesName, List<Episode> episodes)
 		{
-			var episodeFiles = seasonFolder.GetFiles(new Regex("[\\d]+"));
+			var episodeFiles = seasonFolder.GetFilesAsList(new Regex("[\\d]+"));
 			var seasonNumber = int.Parse(Regex.Match(seasonFolder.Name, "Season (\\d+)", RegexOptions.IgnoreCase).Groups[1].Value);
 			episodeFiles.ForEach(x => episodes.Add(GetEpisode(x, seasonNumber, seriesName)));
 		}

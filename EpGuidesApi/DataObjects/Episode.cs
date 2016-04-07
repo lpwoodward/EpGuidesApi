@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EpGuidesApi
+namespace EpGuidesApi.Domain.DataObjects
 {
 	public class Episode
 	{

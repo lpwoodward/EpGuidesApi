@@ -5,13 +5,14 @@ using System.Text;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace EpGuidesApi
+namespace EpGuidesApi.Domain
 {
 	public class MainClass
 	{
 		public static void Main(string[] args)
 		{
-			var seriesInformationFromEpGuides = EpGuidesApi.GetSeriesInformation("Flash_2014");
+			var epGuidesApi = new EpGuidesApi();
+			var seriesInformationFromEpGuides = epGuidesApi.GetSeriesInformation("Flash_2014");
 			var seriesInformationFromDisk = FileSystemEpisodeApi.GetSeriesInformation("Friends", "/Users/Laurence/tmpDir");
 			var latestEpisodeFromDisk = seriesInformationFromDisk.GetLatestEpisode();
 			var episodesToGet = seriesInformationFromEpGuides.GetEpisodesAfterEpisode(latestEpisodeFromDisk);

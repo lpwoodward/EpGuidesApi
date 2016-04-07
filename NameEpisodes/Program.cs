@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using Mono.Posix;
 using Mono.Unix;
 using EpGuidesApi;
@@ -8,6 +7,9 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Linq;
+using EpGuidesApi.Domain.DataObjects;
+using EpGuidesApi.Domain;
+using EpGuidesApi.Domain.DirectoryStuff;
 
 namespace NameEpisodes
 {

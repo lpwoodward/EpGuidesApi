@@ -2,10 +2,11 @@
 using System.Dynamic;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
+using EpGuidesApi.Domain.DataObjects;
 
-namespace EpGuidesApi
+namespace EpGuidesApi.Domain
 {
-	public class EpGuidesApi
+	public class EpGuidesApi : IServiceDataService
 	{
 		#region Properties and Fields
 
@@ -15,8 +16,7 @@ namespace EpGuidesApi
 
 		#endregion
 
-		public static Series GetSeriesInformation(string seriesName) { return MethodObject.GetSeriesInformationSlave(seriesName); 		}
-		protected internal virtual Series GetSeriesInformationSlave(string seriesName)
+		public Series GetSeriesInformation(string seriesName)
 		{
 			var epGuidesSeriesHtml = WebHelpers.GetHtmlPageAsString("http://epguides.com/" + seriesName);
 			var episodeMatches = Regex.Matches(epGuidesSeriesHtml, EpisodeRegex, RegexOptions.Multiline);

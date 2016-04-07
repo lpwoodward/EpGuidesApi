@@ -29,9 +29,26 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\ExternalDlls\nunit.framework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LocalTestBase.cs" />
+    <Compile Include="DirectoryInfoExtensionMethodsIntegrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EpGuidesApi\EpGuidesApi.csproj">
+      <Project>{517A933D-B1BF-49A6-8AFD-88B4A62E9002}</Project>
+      <Name>EpGuidesApi</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

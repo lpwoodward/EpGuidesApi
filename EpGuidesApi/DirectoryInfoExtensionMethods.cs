@@ -8,22 +8,45 @@ using System.Runtime.CompilerServices;
 using Mono.Unix;
 using System.Threading.Tasks;
 
-namespace EpGuidesApi
+namespace EpGuidesApi.Domain.DirectoryStuff
 {
 	public static class DirectoryInfoExtensionMethods
 	{
-		public static List<DirectoryInfo> GetDirectories(this DirectoryInfo directoryInfo, Regex regex, SearchOption searchOption = SearchOption.TopDirectoryOnly)
+		internal static DirectoryInfoExtensionMethodsConcreteObject MethodObject = new DirectoryInfoExtensionMethodsConcreteObject();
+
+		public static List<FileSystemInfo> GetFileSystemInfosAsList(this DirectoryInfo directoryInfo, Regex regex = null, SearchOption searchOption = SearchOption.TopDirectoryOnly)
+		{
+			return directoryInfo.EnumerateFileSystemInfos("*", searchOption)
+								.Where(x => (regex ?? new Regex(".*")).IsMatch(x.Name))
+								.ToList();
+		}
+		
+		public static List<DirectoryInfo> GetDirectoriesAsList(this DirectoryInfo directoryInfo, Regex regex = null, SearchOption searchOption = SearchOption.TopDirectoryOnly)
 		{
 			return directoryInfo.EnumerateDirectories("*", searchOption)
-								.Where(x => regex.IsMatch(x.Name))
+								.Where(x => (regex ?? new Regex(".*")).IsMatch(x.Name))
 								.ToList();
 		}
 
-		public static List<FileInfo> GetFiles(this DirectoryInfo directoryInfo, Regex regex, SearchOption searchOption = SearchOption.TopDirectoryOnly)
+		public static List<FileInfo> GetFilesAsList(this DirectoryInfo directoryInfo, Regex regex = null, SearchOption searchOption = SearchOption.TopDirectoryOnly)
 		{
 			return directoryInfo.EnumerateFiles("*", searchOption)
-								.Where(x => regex.IsMatch(x.Name))
+								.Where(x => (regex ?? new Regex(".*")).IsMatch(x.Name))
 								.ToList();
+		}
+
+		public static bool IsEmpty(this DirectoryInfo directoryInfo)
+		{
+			return directoryInfo.GetFileSystemInfos().Any() == false;
+		}
+
+		public static void ClearDirectory(this DirectoryInfo directoryInfo, bool errorIfSubdirectoriesNotEmpty = false)
+		{
+			if (errorIfSubdirectoriesNotEmpty && directoryInfo.GetDirectoriesAsList().Any(x => x.IsEmpty() == false))
+				throw new Exception("Cannot clear directory, some sub-directories are not empty");
+
+			directoryInfo.GetFilesAsList().ForEach(x => x.Delete());
+			directoryInfo.GetDirectoriesAsList().ForEach(x => x.Delete(true));
 		}
 	}
 

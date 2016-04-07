@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace EpGuidesApi
+namespace EpGuidesApi.Domain.DataObjects
 {
 	public class Season
 	{
