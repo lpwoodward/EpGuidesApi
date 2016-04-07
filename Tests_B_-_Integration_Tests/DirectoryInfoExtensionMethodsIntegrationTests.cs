@@ -358,6 +358,48 @@ namespace EpGuidesApi.Tests.Integration
 
 		#endregion
 
+		#region IsEmpty
+
+		[Test]
+		public void IsEmpty_WHERE_directory_is_empty_SHOULD_return_true()
+		{
+			//act
+			var actual = _instance.IsEmpty();
+
+			//assert
+			Assert.That(actual);
+		}
+
+		[TestCase("normal")]
+		[TestCase(".hidden")]
+		public void IsEmpty_WHERE_directory_contains_file_SHOULD_return_false(string fileName)
+		{
+			//arrange
+			File.Create(TestingDirectoryPath + "/" + fileName);
+
+			//act
+			var actual = _instance.IsEmpty();
+
+			//assert
+			Assert.That(actual, Is.False);
+		}
+
+		[TestCase("normal")]
+		[TestCase(".hidden")]
+		public void IsEmpty_WHERE_directory_contains_directory_SHOULD_return_false(string directoryName)
+		{
+			//arrange
+			File.Create(TestingDirectoryPath + "/" + directoryName);
+
+			//act
+			var actual = _instance.IsEmpty();
+
+			//assert
+			Assert.That(actual, Is.False);
+		}
+
+		#endregion
+
 		#region CleanDirectory
 
 		[Test]
@@ -460,47 +502,6 @@ namespace EpGuidesApi.Tests.Integration
 
 		#endregion
 
-		#region IsEmpty
-
-		[Test]
-		public void IsEmpty_WHERE_directory_is_empty_SHOULD_return_true()
-		{
-			//act
-			var actual = _instance.IsEmpty();
-
-			//assert
-			Assert.That(actual);
-		}
-
-		[TestCase("normal")]
-		[TestCase(".hidden")]
-		public void IsEmpty_WHERE_directory_contains_file_SHOULD_return_false(string fileName)
-		{
-			//arrange
-			File.Create(TestingDirectoryPath + "/" + fileName);
-
-			//act
-			var actual = _instance.IsEmpty();
-
-			//assert
-			Assert.That(actual, Is.False);
-		}
-
-		[TestCase("normal")]
-		[TestCase(".hidden")]
-		public void IsEmpty_WHERE_directory_contains_directory_SHOULD_return_false(string directoryName)
-		{
-			//arrange
-			File.Create(TestingDirectoryPath + "/" + directoryName);
-
-			//act
-			var actual = _instance.IsEmpty();
-
-			//assert
-			Assert.That(actual, Is.False);
-		}
-
-		#endregion
 	}
 }
 
