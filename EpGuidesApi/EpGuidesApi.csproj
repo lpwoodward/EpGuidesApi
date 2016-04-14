@@ -44,16 +44,17 @@
     <Compile Include="DataObjects\Episode.cs" />
     <Compile Include="WebHelpers.cs" />
     <Compile Include="EpGuidesApi.cs" />
-    <Compile Include="FileSystemEpisodeApi.cs" />
-    <Compile Include="DirectoryInfoExtensionMethods.cs" />
-    <Compile Include="ISeriesDataService.cs" />
     <Compile Include="VisibleTo.cs" />
-    <Compile Include="FileInfoExtensionMethods.cs" />
+    <Compile Include="DirectoryStuff\DirectoryInfoExtensionMethods.cs" />
+    <Compile Include="FileSystemEpisodeApi.cs" />
+    <Compile Include="DirectoryStuff\FileInfoExtensionMethods.cs" />
+    <Compile Include="DataContracts\ISeriesDataService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="DataObjects\" />
     <Folder Include="DirectoryStuff\" />
+    <Folder Include="DataContracts\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

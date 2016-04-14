@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace EpGuidesApi.Domain.DirectoryStuff
 {
+	// It might be possible to make IFileInfo, IDirectoryInfo, IFileSystemInfo interfaces that expose common functionality
+	// and then service locate either UnixFileInfo or WindowsFileInfo implementations dependent upon run-time OperatingSystem
+	// this is probably wasted effort, I probably won't be running this on a Windows box
+
 	public static class DirectoryInfoExtensionMethods
 	{
 		internal static DirectoryInfoExtensionMethodsConcreteObject MethodObject = new DirectoryInfoExtensionMethodsConcreteObject();

@@ -32,11 +32,13 @@
     <Reference Include="nunit.framework">
       <HintPath>..\ExternalDlls\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Posix" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LocalTestBase.cs" />
     <Compile Include="DirectoryInfoExtensionMethodsIntegrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FileInfoExtensionMethodsIntegrationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
